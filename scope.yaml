@@ -1,44 +1,48 @@
 schema_version: "1.0"
 review:
-  name: "Vercel AI SDK core local security review"
+  name: "Hotcoin public-scope security review"
   authorization_ack:
     granted_by: "workspace owner"
     granted_on: "2026-10-01"
     statement: >-
-      Authorization is limited to reviewing downloaded public source and testing
-      isolated AI SDK instances controlled by the workspace owner. It does not
-      authorize testing Vercel, HackerOne, production services, customer systems,
-      or any other remote platform.
+      Authorization is limited to the public targets and program rules supplied
+      by the workspace owner. Testing must be non-destructive, use only the
+      researcher's own accounts and data, and remain within the listed scope.
 targets:
   include:
-    - repository: "https://github.com/vercel/ai"
-      package: "ai"
-      version: "7.0.126"
-      commit: "45e1fbc3ea10d22f852e12b1c1851e289c85e835"
-      testing: "local-source-and-isolated-runtime-only"
+    - url: "https://www.hotcoin.com"
+      type: "web"
+      severity: "critical"
+    - url: "https://play.google.com/store/apps/details?id=com.pro.hot"
+      package: "com.pro.hot"
+      type: "android"
+      severity: "critical"
+    - url: "https://apps.apple.com/us/app/hotcoin-buy-bitcoin-crypto/id6443757275"
+      app_id: "6443757275"
+      type: "ios"
+      severity: "critical"
   exclude:
-    - "Vercel production services and APIs"
-    - "customer deployments, data, accounts, teams, projects, and infrastructure"
-    - "third-party providers and provider packages"
-    - "examples, demos, and intentionally unsafe application code"
-    - "automatic or manual vulnerability submission without a separate instruction"
+    - "third-party applications and assets not owned by Hotcoin"
+    - "denial of service, social engineering, phishing, fraud, and spam"
+    - "automated vulnerability scanners and high-volume traffic"
+    - "testing that accesses or modifies another user's data"
+    - "mobile testing requiring physical access, root, or jailbreak"
+    - "out-of-scope vulnerability classes listed in the supplied policy"
 network:
   passive_retrieval_allowed:
-    - "official public source code and package releases"
-    - "official documentation and security policies"
-    - "public advisories, issues, and patches"
-  active_remote_testing: false
-  test_service_bind: "127.0.0.1"
-  poc_external_egress: false
+    - "listed public targets and their first-party static assets"
+    - "official application-store metadata"
+  automated_scanning: false
 testing:
-  live_platform: false
-  remote_exploitation: false
-  third_party_targets: false
   destructive_or_persistent_actions: false
   denial_of_service_or_resource_exhaustion: false
-  real_credentials_or_personal_data: false
+  third_party_targets: false
+  other_user_data: false
+  spam_or_bulk_account_creation: false
 reporting:
   automatic_submission: false
   public_disclosure: false
+  report_deadline_after_discovery_hours: 24
+  channel: "hackenproof.com"
+  runnable_poc_required: true
   manual_owner_review_required: true
-

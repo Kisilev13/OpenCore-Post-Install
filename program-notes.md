@@ -1,36 +1,37 @@
-# Vercel AI SDK Local Review Notes
+# Hotcoin Review Notes
 
 ## Policy evidence and authority
 
-The Vercel program policy referenced by the workspace owner is treated as
-**supplied policy evidence only**. This review does not claim that the policy
-was independently verified as current. No saved policy JSON was present in the
-workspace or elsewhere on the local filesystem when searched on 2026-10-01.
-Likewise, no installed bug-bounty methodology skill or
-`vercel_ai_local_hunt.sh` was found. Consequently, no hunt script was executed,
-and no script network destinations or commands could be inspected.
+The Hotcoin program text supplied by the workspace owner is treated as policy
+evidence for this review. It was not independently verified as current. The
+authorization is limited to the three targets recorded in `scope.yaml` and does
+not extend to third-party services or unrelated infrastructure.
 
-The workspace owner authorized local source review and tests against isolated
-instances they control. That acknowledgment is limited to this local lane and
-does not authorize platform testing.
-
-## Operational interpretation
-
-* Public retrieval of official source, stable package releases, documentation,
-  policies, advisories, issues, and patches is research, not active testing.
-* Active tests are limited to local processes, synthetic inputs, mock providers,
-  and loopback-bound services.
-* Live Vercel services, production APIs, customer systems, and third parties are
-  out of scope.
-* Provider-package behavior, examples, application mistakes, and malicious
-  upstream data without a documented protection boundary are not eligible core
-  SDK findings.
-* Nothing may be published or submitted automatically. Any future report must
-  be reproduced and reviewed manually by the workspace owner first.
+The operational constraints prohibit automated scanners, destructive testing,
+denial of service, spam, access to other users' data, and public disclosure.
+Any validated issue must be reported exclusively through HackenProof within 24
+hours of discovery. A report must contain a runnable proof of concept; a static
+observation alone is insufficient.
 
 ## Repository context
 
-The actual Git root is `/workspace/OpenCore-Post-Install`. This repository is
-not the AI SDK repository; the official AI SDK source was cloned into the
-ephemeral `/tmp/vercel-ai-review` directory for review. The baseline and results
-are recorded under `evidence/ai-sdk-local/` without vendoring the upstream tree.
+The Git root is `/workspace/OpenCore-Post-Install`, an OpenCore documentation
+site. It contains neither Hotcoin web source nor the official Android or iOS
+application binaries. Existing material under `evidence/ai-sdk-local/` concerns
+a separate, completed review and was not used as evidence about Hotcoin.
+
+## Review result
+
+No Hotcoin vulnerability was identified or validated from this repository.
+Connection attempts to the in-scope web root were rejected by the environment's
+egress proxy during tunnel establishment, before an HTTP request reached the
+application. The public Google Play listing was retrievable and confirmed the
+package identity and store metadata, but it did not provide an official APK or
+source code for static analysis. Apple's public lookup endpoint was blocked by
+the same egress control. No circumvention, endpoint enumeration, scanner,
+account action, or mobile binary retrieval was attempted.
+
+Because there is no suspected vulnerability, reproducible state change, or
+runnable proof of concept, creating a vulnerability report would be misleading
+and contrary to the program's stated requirements. The evidence record in
+`evidence/hotcoin/README.md` preserves the disposition and safe next steps.
