@@ -1,0 +1,29 @@
+AI SDK core local security review continuation
+Date: 2026-10-01
+Package: ai@7.0.126
+Commit: 45e1fbc3ea10d22f852e12b1c1851e289c85e835
+Runtime: Node 22.23.3 via npx node@22
+Package manager: pnpm 11.23.0
+
+Preparation:
+  npx -y -p node@22 -p pnpm@11.23.0 -c 'pnpm install --frozen-lockfile --ignore-scripts --filter ai... --network-concurrency=4 --fetch-retries=3'
+  Result: PASS; frozen lockfile accepted; filtered workspace installed.
+
+Build:
+  npx -y -p node@22 -p pnpm@11.23.0 -c 'pnpm --filter @ai-sdk/provider build && pnpm --filter @ai-sdk/provider-utils build && pnpm --filter ai build'
+  Result: PASS.
+
+Focused realtime group 1:
+  cd /tmp/vercel-ai-review/packages/ai
+  npx -y -p node@22 -p pnpm@11.23.0 -c 'pnpm exec vitest --config vitest.node.config.js --run src/realtime/browser-realtime-transport.test.ts src/realtime/realtime-client-runtime.test.ts src/realtime/realtime-review-regressions.test.ts src/realtime/realtime-session.test.ts src/realtime/realtime-lifecycle.test.ts'
+  Result: PASS; 5 files, 149 tests, no type errors.
+
+Focused realtime group 2:
+  cd /tmp/vercel-ai-review/packages/ai
+  npx -y -p node@22 -p pnpm@11.23.0 -c 'pnpm exec vitest --config vitest.node.config.js --run src/realtime/realtime-live-websocket.test.ts src/realtime/browser-realtime-webrtc.test.ts src/realtime/realtime-live-session.test.ts src/realtime/realtime-event-channel.test.ts src/realtime/realtime-command-tracker.test.ts'
+  Result: PASS; 5 files, 109 tests, no type errors.
+
+Network behavior:
+  Dependency and public-source retrieval used the network as permitted by scope.
+  Runtime tests used synthetic browser objects and local mocks. No live Vercel,
+  provider, customer, or third-party target was tested.

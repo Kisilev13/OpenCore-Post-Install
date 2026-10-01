@@ -1,0 +1,8 @@
+# Supported Codex controls only. Research-specific scope is defined in
+# /scope.yaml and /KILL-CONDITIONS.md.
+approval_policy = "never"
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+network_access = false
+

@@ -1,0 +1,44 @@
+schema_version: "1.0"
+review:
+  name: "Vercel AI SDK core local security review"
+  authorization_ack:
+    granted_by: "workspace owner"
+    granted_on: "2026-10-01"
+    statement: >-
+      Authorization is limited to reviewing downloaded public source and testing
+      isolated AI SDK instances controlled by the workspace owner. It does not
+      authorize testing Vercel, HackerOne, production services, customer systems,
+      or any other remote platform.
+targets:
+  include:
+    - repository: "https://github.com/vercel/ai"
+      package: "ai"
+      version: "7.0.126"
+      commit: "45e1fbc3ea10d22f852e12b1c1851e289c85e835"
+      testing: "local-source-and-isolated-runtime-only"
+  exclude:
+    - "Vercel production services and APIs"
+    - "customer deployments, data, accounts, teams, projects, and infrastructure"
+    - "third-party providers and provider packages"
+    - "examples, demos, and intentionally unsafe application code"
+    - "automatic or manual vulnerability submission without a separate instruction"
+network:
+  passive_retrieval_allowed:
+    - "official public source code and package releases"
+    - "official documentation and security policies"
+    - "public advisories, issues, and patches"
+  active_remote_testing: false
+  test_service_bind: "127.0.0.1"
+  poc_external_egress: false
+testing:
+  live_platform: false
+  remote_exploitation: false
+  third_party_targets: false
+  destructive_or_persistent_actions: false
+  denial_of_service_or_resource_exhaustion: false
+  real_credentials_or_personal_data: false
+reporting:
+  automatic_submission: false
+  public_disclosure: false
+  manual_owner_review_required: true
+
